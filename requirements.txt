@@ -1,0 +1,13 @@
+streamlit 
+pandas
+numpy
+json
+streamlit_lottie
+requests
+streamlit_extras.colored_header
+annotated_text
+PIL
+streamlit_extras.stoggle
+streamlit_extras.let_it_rain
+matplotlib.pyplot
+plotly.express
