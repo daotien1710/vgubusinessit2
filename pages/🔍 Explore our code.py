@@ -486,14 +486,24 @@ if choice == 'Main dataset':
     load.rename (columns = {'Total_Civilian_Non_Institutional_Population_in_Area':'Population'}, inplace = True)
 
     st.sidebar.header("Filter:")
+    Select_all = st.sidebar.checkbox('Select all')  
 
-    Area_select = st.sidebar.multiselect("Select the area:",options=load["Area"].unique(),default=None)
-    Year_select = st.sidebar.multiselect("Select the year:",options=load["Year"].unique(),default=None)
-    Month_select = st.sidebar.multiselect("Select the month:",options=load["Month"].unique(),default=None)
+    if Select_all:
+        Area_select = st.sidebar.multiselect("Select the area:",options=load["Area"].unique(),default=load["Area"].unique())
+        Year_select = st.sidebar.multiselect("Select the year:",options=load["Year"].unique(),default=load["Year"].unique())
+        Month_select = st.sidebar.multiselect("Select the month:",options=load["Month"].unique(),default=load["Month"].unique())
 
-    load_selection = load.query("Area == @Area_select & Year == @Year_select & Month == @Month_select")
+        load_selection = load.query("Area == @Area_select & Year == @Year_select & Month == @Month_select")
 
-    st.dataframe(load_selection)
+        st.dataframe(load_selection)
+    else:
+        Area_select = st.sidebar.multiselect("Select the area:",options=load["Area"].unique(),default=None)
+        Year_select = st.sidebar.multiselect("Select the year:",options=load["Year"].unique(),default=None)
+        Month_select = st.sidebar.multiselect("Select the month:",options=load["Month"].unique(),default=None)
+
+        load_selection = load.query("Area == @Area_select & Year == @Year_select & Month == @Month_select")
+
+        st.dataframe(load_selection)
 
 if choice =='Sub dataset - The US GDP per capita per state':
     load1 = pd.read_csv('States-Behavior-And-More-MainSheet.csv')
